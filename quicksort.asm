@@ -1,5 +1,3 @@
-#studentName: Helen Kulka
-#studentID: 260763566
 
 # This MIPS program should sort a set of numbers using the quicksort algorithm
 # The program should use MMIO
