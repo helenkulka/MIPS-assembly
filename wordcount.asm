@@ -1,5 +1,4 @@
-#studentName: Helen Kulka
-#studentID: 260763566
+
 
 # This MIPS program should count the occurence of a word in a text block using MMIO
 
