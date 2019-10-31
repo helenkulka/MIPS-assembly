@@ -11,10 +11,10 @@ reInitializedStatement: .asciiz "The Array is re-initialized\n"
 array: .space 600
 wordArray: .space 600
 	.align 4
-actuallyWordArray: .space 2400
+storageWordArray: .space 2400
 arrayToPrint: .space 600
-actuallyPrint: .space 600
-probablyNeed: .space 600
+print: .space 600
+intermediate: .space 600
 
 
 	.text
@@ -202,11 +202,11 @@ CommandS:
 	jal ArraySize
 	
 	la $a1, wordArray
-	la $a2, actuallyWordArray
+	la $a2, storageWordArray
 	jal ConvertToWord
 	
 	
-	la $a0, actuallyWordArray
+	la $a0, storageWordArray
 	li $a1, 0
 	
 	move $t0, $t6  #store number of elements
@@ -219,7 +219,7 @@ CommandS:
 	la $a1, sortedStatement
 	jal Print
 	
-	la $a0, actuallyWordArray
+	la $a0, storageWordArray
 	la $a2, arrayToPrint
 	j okMaybeThisWorks
 	
@@ -249,7 +249,7 @@ umOK:
 	sb $0, 0($a2)
 	
 	la $a0, arrayToPrint 
-	la $a1, actuallyPrint
+	la $a1, print
 	j Print2
 	
 #####################
@@ -292,7 +292,7 @@ doubleDig:
 
 okNOW:
 
-	la $a1, actuallyPrint
+	la $a1, print
 	jal Print
 	
 	j startNew
@@ -302,10 +302,10 @@ okNOW:
 CommandC: 
 	la $a1, array
 	la $a2, wordArray
-	la $a3, actuallyWordArray
-	la $a0, probablyNeed
+	la $a3, storageWordArray
+	la $a0, intermediate
 	la $t7, arrayToPrint
-	la $t8, actuallyPrint
+	la $t8, pPrint
 	
 loopC:
 	lb $t9, 0($a1)
@@ -362,15 +362,15 @@ CStartOver:
 
 startNew: 
 
-	la $a1, probablyNeed
+	la $a1, intermediate
 	jal Read
 	
-	la $a2, probablyNeed
+	la $a2, intermediate
 	
 	
 ##########
 
-#if $a0 isnt empty we go thru this loop to end at the end of now filled probablyNeed ($a2) array
+#if $a0 isnt empty we go thru this loop to end at the end of now filled intermediate ($a2) array
 
 	la $a0, array
 combineLoop:
